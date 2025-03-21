@@ -6,9 +6,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Art Gallery</title>
         <style>
-            body { background-color: #121212; color: white; font-family: 'Georgia', serif; text-align: center; margin: 0; padding: 0; }
-            h1 { font-size: 3rem; margin: 20px 0; }
-            .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 40px; }
+            body {
+                background-color: #121212;
+                color: white;
+                font-family: 'Georgia', serif;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                font-size: 3rem;
+                margin: 20px 0;
+            }
+            .gallery {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+                padding: 40px;
+            }
             .image-container {
                 position: relative;
                 width: 340px;
@@ -30,76 +46,154 @@
                 border-radius: 8px;
                 border: 5px solid #777;
                 transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+                cursor: pointer; /* Add cursor style for lightbox */
             }
-            img:hover { transform: scale(1.02); border-color: #aaa; }
-            .image-title { font-size: 22px; margin-top: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-            .image-description { font-size: 16px; margin-top: 8px; opacity: 0.9; font-style: italic; }
-            .author {
-                position: absolute;
-                bottom: 15px;
-                right: 15px;
-                opacity: 0;
-                font-size: 14px;
+            img:hover {
+                transform: scale(1.02);
+                border-color: #aaa;
+            }
+            .image-title {
+                font-size: 22px;
+                margin-top: 10px;
                 font-weight: bold;
-                transition: opacity 0.3s ease-in-out;
-                color: #ddd;
+                text-transform: uppercase;
+                letter-spacing: 1px;
             }
-            .image-container:hover .author { opacity: 1; transition-delay: 1.5s; }
+            .image-description {
+                font-size: 16px;
+                margin-top: 8px;
+                opacity: 0.9;
+                font-style: italic;
+            }
+            .image-container:hover .author {
+                opacity: 1;
+                transition-delay: 1.5s;
+            }
+
+            /* Lightbox Styles */
+            #lightbox {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 1000;
+                text-align: center;
+                overflow: auto; /* Enable scroll if image is too big */
+            }
+            #lightbox img {
+                max-width: 90%;
+                max-height: 90%;
+                margin-top: 50px; /* Add some top margin */
+                border: none; /* Remove border */
+                border-radius: 8px; /* Keep border radius */
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Add shadow */
+            }
+            #lightbox-close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 30px;
+                color: white;
+                cursor: pointer;
+                opacity: 0.7;
+                transition: opacity 0.3s ease;
+                border: none;
+                background: none;
+            }
+            #lightbox-close:hover {
+                opacity: 1;
+            }
+            #lightbox-content { /* New container for image and close button */
+                position: relative; /* Needed for absolute positioning of close button */
+                display: inline-block; /* Adjust width to content */
+            }
+
         </style>
     </head>
     <body>
         <h1>Art Gallery</h1>
         <div class="gallery">
     
-        <div class="image-container">
-            <div class="image-title">3 pointed star</div>
-            <img src="images/3 pointed star.png" alt="3 pointed star.png" title="Erm actually it's a Sierpinski Triangle Fractal, do seriously try to keep up.">
-            <div class="image-description">It's a triforce!</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">3 pointed star</div>
+                <img src="images/3 pointed star.png" alt="3 pointed star.png" title="Erm actually it's a Sierpinski Triangle Fractal, do seriously try to keep up." onclick="showLightbox('images/3 pointed star.png')">
+                <div class="image-description">It's a triforce!</div>
+            </div>
         
-        <div class="image-container">
-            <div class="image-title">Burgundy</div>
-            <img src="images/Burgundy.png" alt="Burgundy.png" title="No clue what's going on here.">
-            <div class="image-description">Fun Fact: not even burgundy</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">A Piece about Life and Death</div>
+                <img src="images/A Piece about Life and Death.png" alt="A Piece about Life and Death.png" title="This one's unreadable." onclick="showLightbox('images/A Piece about Life and Death.png')">
+                <div class="image-description">Try to keep up</div>
+            </div>
         
-        <div class="image-container">
-            <div class="image-title">CRT</div>
-            <img src="images/CRT_best.png" alt="CRT_best.png" title="Sometimes I just want to eat static.">
-            <div class="image-description">CRT</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">Burgundy</div>
+                <img src="images/Burgundy.png" alt="Burgundy.png" title="What?" onclick="showLightbox('images/Burgundy.png')">
+                <div class="image-description">Fun Fact: not even burgundy</div>
+            </div>
         
-        <div class="image-container">
-            <div class="image-title">Dreamscape</div>
-            <img src="images/Dreamscape.png" alt="Dreamscape.png" title="Come on, stay for a while. The outside world is dying, but here, it is not. stay. stay. stay. stay">
-            <div class="image-description">:)</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">CRT</div>
+                <img src="images/CRT_best.png" alt="CRT_best.png" title="Sometimes I just want to eat static." onclick="showLightbox('images/CRT_best.png')">
+                <div class="image-description">CRT</div>
+            </div>
         
-        <div class="image-container">
-            <div class="image-title">Floating</div>
-            <img src="images/Floating.png" alt="Floating.png" title="Just like one of those "lazy rivers".">
-            <div class="image-description">Floating into the void.</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">Dreamscape</div>
+                <img src="images/Dreamscape.png" alt="Dreamscape.png" title="Come on, stay for a while. The outside world is dying, but here, it is not. stay. stay. stay. stay" onclick="showLightbox('images/Dreamscape.png')">
+                <div class="image-description">:)</div>
+            </div>
         
-        <div class="image-container">
-            <div class="image-title">Have you ever</div>
-            <img src="images/Have you ever.png" alt="Have you ever.png" title="Consider it as an option">
-            <div class="image-description">Think about it</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">Floating</div>
+                <img src="images/Floating.png" alt="Floating.png" title='Just like one of those "lazy rivers".' onclick="showLightbox('images/Floating.png')">
+                <div class="image-description">Floating into the void.</div>
+            </div>
         
-        <div class="image-container">
-            <div class="image-title">A Piece about Life and Death</div>
-            <img src="images/Life and Death.png" alt="Life and Death.png" title="This one's unreadable.">
-            <div class="image-description">Try to keep up</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">Have you ever</div>
+                <img src="images/Have you ever.png" alt="Have you ever.png" title="Consider it as an option" onclick="showLightbox('images/Have you ever.png')">
+                <div class="image-description">Think about it</div>
+            </div>
         
-        <div class="image-container">
-            <div class="image-title">Poem</div>
-            <img src="images/Poem.png" alt="Poem.png" title="Have fun figuring this one out">
-            <div class="image-description">Came to me in a dream.</div>
-        </div>
+            <div class="image-container">
+                <div class="image-title">Poem</div>
+                <img src="images/Poem.png" alt="Poem.png" title="Don't question the symbols." onclick="showLightbox('images/Poem.png')">
+                <div class="image-description">Came to me in a dream.</div>
+            </div>
         
         </div>
+        <div id="lightbox">
+            <div id="lightbox-content">
+                <img id="lightbox-img">
+                <button id="lightbox-close" onclick="hideLightbox()">×</button>
+            </div>
+        </div>
+
+        <script>
+            function showLightbox(imageSrc) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                lightboxImg.src = imageSrc;
+                lightbox.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+
+            function hideLightbox() {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.style.display = 'none';
+                document.body.style.overflow = ''; // Allow scrolling again
+            }
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    hideLightbox();
+                }
+            });
+        </script>
     </body>
     </html>
     
