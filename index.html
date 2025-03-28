@@ -29,7 +29,7 @@
             width: 340px;
             border: 8px solid #666;
             border-radius: 12px;
-            overflow: hidden;
+            overflow: visible;
             background: #1e1e1e;
             padding: 15px;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -106,6 +106,43 @@
             display: inline-block; /* Adjust width to content */
         }
 
+        .image-container {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .new-label {
+            position: absolute;
+            top: -15px;
+            left: -25px;
+            color: #26255c;
+            font-size: 24px;
+            font-weight: bold;
+            transform: rotate(-45deg);
+            animation: spin-wobble 2s infinite ease-in-out;
+            pointer-events: none;
+            user-select: none;
+            text-shadow:
+                -2px -2px #565661,
+                0px -2px #565661,
+                2px -2px #565661,
+                -2px 0px #565661,
+                2px 0px #565661,
+                -2px 2px #565661,
+                0px 2px #565661,
+                2px 2px #565661;
+        }
+
+        /* Smooth rotational wobble */
+        @keyframes spin-wobble {
+            0%   { transform: rotate(-45deg); }
+            25%  { transform: rotate(-48deg); }
+            50%  { transform: rotate(-45deg); }
+            75%  { transform: rotate(-42deg); }
+            100% { transform: rotate(-45deg); }
+        }
+
     </style>
 </head>
 <body>
@@ -164,6 +201,20 @@
             <div class="image-title">Poem</div>
             <img src="images/Poem.png" alt="Poem.png" title="The symbols have a deeper meaning." onclick="showLightbox('images/Poem.png')">
             <div class="image-description">Came to me in a dream.</div>
+        </div>
+
+        <div class="image-container">
+            <div class="new-label">NEW!</div>
+            <div class="image-title">Globe</div>
+            <img src="images/Globe.png" alt="Globe.png" title="in just a few seconds." onclick="showLightbox('images/Globe.png')">
+            <div class="image-description">all around the world.</div>
+        </div>
+
+        <div class="image-container">
+            <div class="new-label">NEW!</div>
+            <div class="image-title">Take a Dip</div>
+            <img src="images/Take a Dip.png" alt="Take a Dip.png" title="quite warm tonight, don't you agree? it could be the fire." onclick="showLightbox('images/Take a Dip.png')">
+            <div class="image-description">join us</div>
         </div>
 
     </div>
